@@ -11,4 +11,5 @@ To use it
 		return connectionFactory().service("service-id", DirContext.class);
 	}
 	
-	Just replace "service-id" by the identifier of your custom user provided service
+
+Just replace "service-id" by the identifier of your custom user provided service
