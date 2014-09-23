@@ -1,6 +1,9 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 
+
+version = "1.0.0"
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
@@ -14,4 +17,29 @@ dependencies {
     compile 'org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.1.0.RELEASE'
     testCompile("junit:junit:4.11")
 	testCompile("org.springframework:spring-test:3.1.4.RELEASE")
+}
+
+
+configure(install.repositories.mavenInstaller) {
+	pom.project {
+		groupId 'io.pivotal.cloudfoundry.connectors'
+		artifactId 'ldap'
+		packaging 'jar'
+		
+	}
+}
+
+task sourcesJar(type: Jar, dependsOn:classes) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn:javadoc) {
+	classifier = 'javadoc'
+	from javadoc.destinationDir
+}
+
+artifacts {
+	archives sourcesJar
+	archives javadocJar
 }
